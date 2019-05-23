@@ -28,6 +28,10 @@ public class JobData {
      * @param field The column to retrieve values from
      * @return List of all of the values of the given field
      */
+
+    //"findAll" locations, Employers, etc.  not really "finding" anything
+    //"field" is always legit.  more like "getAll" Employer columns from
+    // every hashmap in the array
     public static ArrayList<String> findAll(String field) {
 
         // load data, if not already loaded
@@ -46,6 +50,7 @@ public class JobData {
         return values;
     }
 
+    //this just returns EVERYTHING.  it's the opposite of find.
     public static ArrayList<HashMap<String, String>> findAll() {
 
         // load data, if not already loaded
@@ -76,9 +81,33 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
+        }
+
+        return jobs;
+    }
+
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+
+        // load data, if not already loaded
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs) {
+
+            for (String column : row.keySet()){
+                if (row.get(column).toLowerCase().contains(value.toLowerCase())){
+                    if (!jobs.contains(row))
+                        jobs.add(row);
+                    //if (!values.contains(aValue)) {
+                    //    values.add(aValue);
+                    //}
+                }
+            }
+
         }
 
         return jobs;

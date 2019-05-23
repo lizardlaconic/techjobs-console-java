@@ -61,8 +61,10 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
-                } else {
+                    //System.out.println("Search all fields not yet implemented.");
+                    printJobs(JobData.findByValue(searchTerm));
+                }
+                else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
             }
@@ -78,6 +80,10 @@ public class TechJobs {
 
         // Put the choices in an ordered structure so we can
         // associate an integer with each one
+
+        //why not skip all this and just use HashMap<>choices?
+        //what is the point of choicekeys[]?
+        //well maybe you can never rely on hashmap positioning, maybe they're right
         Integer i = 0;
         for (String choiceKey : choices.keySet()) {
             choiceKeys[i] = choiceKey;
@@ -111,6 +117,22 @@ public class TechJobs {
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+        //System.out.println("printJobs is not implemented yet");
+
+        if(someJobs.size()>0) {
+            for (HashMap<String, String> spy : someJobs) {
+                System.out.println("*****");
+                //System.out.println("yeah, baby");
+                for (String lilspy : spy.keySet()) {
+                    //System.out.println("*****");
+                    System.out.println(lilspy + ": " + spy.get(lilspy));
+                    //System.out.println("*****");
+                }
+                System.out.println("*****\n");
+            }
+        }
+        else {
+            System.out.println("NO RESULTS!!!!!!!!!!!!\n");
+        }
     }
 }
